@@ -37,6 +37,20 @@ export const routeMap = new Map<ProductModule, RouteConfig>([
       ],
     } as RouteConfig,
   ],
+  [
+    ProductModule.Zustand,
+    {
+      path: "",
+      children: [
+        {
+          path: "demo",
+          component: React.lazy(
+            () => import("@modules/zustand/pages/DemoPage")
+          ),
+        },
+      ],
+    } as RouteConfig,
+  ],
 ]);
 
 /**

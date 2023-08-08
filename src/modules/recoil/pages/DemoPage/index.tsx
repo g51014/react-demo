@@ -18,29 +18,31 @@ const DemoPage = (props: Props) => {
   const filter = useSetRecoilState(userFilter);
   const [isEdit, setEdit] = useState<boolean>(false);
   return (
-    <ContentLayout classes="row gap-4 gap-md-0" testId="DemoPage">
-      <div className="col-12 mb-0 mb-md-4">
-        <div className="d-flex flex-row align-items-center gap-3">
-          fitler:
-          <button onClick={() => filter(UserFilter.All)}>all</button>
-          <button onClick={() => filter(UserFilter.Valid)}>valid</button>
+    <ContentLayout testId="DemoPage">
+      <div className="row gap-4 gap-md-0">
+        <div className="col-12 mb-0 mb-md-4">
+          <div className="d-flex flex-row align-items-center gap-3">
+            fitler:
+            <button onClick={() => filter(UserFilter.All)}>all</button>
+            <button onClick={() => filter(UserFilter.Valid)}>valid</button>
+          </div>
         </div>
-      </div>
-      <div className="col-12 col-md-6">
-        <UserList
-          list={list}
-          handleOnViewUser={(id) => {
-            navigate(`/recoil/demo/${id}`);
-            setEdit(false);
-          }}
-        />
-      </div>
-      <div className="col-12 col-md-6">
-        <UserDetail
-          id={id}
-          isEdit={isEdit}
-          handleOnModeChange={(isEdit) => setEdit(isEdit)}
-        />
+        <div className="col-12 col-md-6">
+          <UserList
+            list={list}
+            handleOnViewUser={(id) => {
+              navigate(`/recoil/demo/${id}`);
+              setEdit(false);
+            }}
+          />
+        </div>
+        <div className="col-12 col-md-6">
+          <UserDetail
+            id={id}
+            isEdit={isEdit}
+            handleOnModeChange={(isEdit) => setEdit(isEdit)}
+          />
+        </div>
       </div>
     </ContentLayout>
   );

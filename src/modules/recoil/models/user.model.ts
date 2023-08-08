@@ -47,6 +47,10 @@ export class User implements IUser {
   }
 }
 
+/**
+ * 透過atom建立state作為共用資料仿單例模型
+ * state可搭配useRecoilState使用
+ */
 export const userListState = atom<User[]>({
   key: "user-list",
   default: [
@@ -64,6 +68,10 @@ export const userFilter = atom<UserFilter>({
   default: undefined,
 });
 
+/**
+ * 透過selector方法於內部組合多個state進行運算
+ * 搭配useRecoilValue使用
+ */
 export const userListSelector = selector({
   key: "user-list-selector",
   get: ({ get }) => {

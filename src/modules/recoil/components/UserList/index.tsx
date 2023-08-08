@@ -15,18 +15,24 @@ const UserListItem = ({ user, handleOnViewUser }: ListItem) => {
   const { update, switchUser } = useUserInfo(user.id);
   const { id, name, isAuth, using } = user!;
   return (
-    <li className="d-flex flex-row align-items-center gap-2">
-      {name}
-      <button onClick={() => handleOnViewUser(id)}>view</button>
-      {!isAuth && (
-        <button onClick={() => update({ isAuth: true })}>auth</button>
-      )}
-      {isAuth && (
-        <button disabled={using} onClick={switchUser}>
-          switch
-        </button>
-      )}
-    </li>
+    <tr className="py-3">
+      <td className="pe-3 py-1 text-wrap" style={{ wordBreak: "break-all" }}>
+        {name}
+      </td>
+      <td className="pe-3 py-1">
+        <div className="d-flex flex-row align-items-center gap-3">
+          <button onClick={() => handleOnViewUser(id)}>view</button>
+          {!isAuth && (
+            <button onClick={() => update({ isAuth: true })}>auth</button>
+          )}
+          {isAuth && (
+            <button disabled={using} onClick={switchUser}>
+              switch
+            </button>
+          )}
+        </div>
+      </td>
+    </tr>
   );
 };
 
@@ -35,22 +41,34 @@ const UserList = ({ list, handleOnViewUser }: Props) => {
   return (
     <>
       <h1>user list</h1>
-      <ul className="p-0 m-0 list-unstyled gap-3 d-flex flex-column">
-        {list.length > 0 ? (
-          list.map((user) => (
-            <UserListItem
-              key={user.id}
-              user={user}
-              handleOnViewUser={handleOnViewUser}
-            />
-          ))
-        ) : (
-          <li>no data</li>
-        )}
-        <li>
-          <button onClick={() => navigate(`/recoil/demo/add`)}>add</button>
-        </li>
-      </ul>
+      <table className="w-100" style={{ tableLayout: "fixed" }}>
+        <thead>
+          <tr>
+            <th style={{ width: "60%" }} className="pe-3 py-1">
+              name
+            </th>
+            <th className="pe-3 py-1">ation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {list.length > 0 ? (
+            list.map((user) => (
+              <UserListItem
+                key={user.id}
+                user={user}
+                handleOnViewUser={handleOnViewUser}
+              />
+            ))
+          ) : (
+            <tr>
+              <td colSpan={2}>no data</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <button className="mt-4" onClick={() => navigate(`/recoil/demo/add`)}>
+        add
+      </button>
     </>
   );
 };

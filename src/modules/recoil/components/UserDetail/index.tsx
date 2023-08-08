@@ -3,7 +3,7 @@ import {
   useUserInfo,
   userListState,
 } from "@modules/recoil/models/user.model";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useSetRecoilState } from "recoil";
