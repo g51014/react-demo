@@ -24,7 +24,7 @@ const DemoPage = () => {
   } = useForm<Form>({
     defaultValues: initialForm,
   });
-  const { list, add, remove, active } = useStockList();
+  const { data, add, remove, active } = useStockList();
   const form = (
     <form
       onSubmit={handleSubmit((formData) => {
@@ -84,8 +84,8 @@ const DemoPage = () => {
               </tr>
             </thead>
             <tbody>
-              {list.length > 0 ? (
-                list.map((stock) => (
+              {data.length > 0 ? (
+                data.map((stock) => (
                   <tr key={stock.id}>
                     <td>{stock.name}</td>
                     <td>{stock.getMarketName()}</td>

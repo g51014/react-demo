@@ -1,3 +1,4 @@
+import { IBaseZustandResponse } from "@shared/interfaces/zustand.interface";
 import { create } from "zustand";
 
 enum Market {
@@ -13,8 +14,7 @@ export interface IStock {
   isActive: boolean;
 }
 
-interface StockInfo {
-  list: Stock[];
+interface StockInfo extends IBaseZustandResponse<Stock[]> {
   add: (stock: Stock) => void;
   remove: (id: string) => void;
   active: (id: string) => void;
@@ -52,16 +52,16 @@ export class Stock implements IStock {
 }
 
 export const useStockList = create<StockInfo>()((set) => ({
-  list: [],
-  add: (stock) => set(({ list }) => ({ list: [...list, stock] })),
+  data: [],
+  add: (stock) => set(({ data }) => ({ data: [...data, stock] })),
   remove: (stockId) =>
-    set(({ list }) => ({ list: list.filter(({ id }) => id !== stockId) })),
+    set(({ data }) => ({ data: data.filter(({ id }) => id !== stockId) })),
   active: (stockId) =>
-    set(({ list }) => {
-      const target = list.find(({ id }) => stockId === id);
+    set(({ data }) => {
+      const target = data.find(({ id }) => stockId === id);
       if (target) {
         target.isActive = true;
       }
-      return { list };
+      return { data };
     }),
 }));

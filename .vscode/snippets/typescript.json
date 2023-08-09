@@ -1,0 +1,33 @@
+{
+  "zustand": {
+    "prefix": "$zustand",
+    "body": [
+      "export const use${1} = create<${2:IBaseZustandResponse}>()((set) => ({data: ${0:{}} }))"
+    ],
+    "description": "generate zustand template"
+  },
+  "recoil-state": {
+    "prefix": "$recoil-state",
+    "body": [
+      "/**\n * @description $1\n */",
+      "export const $2State = atom<${3:any}>({key: ${4:``}, default: ${5:undefined}});"
+    ],
+    "description": "generate recoil state template"
+  },
+  "recoil-selector": {
+    "prefix": "$recoil-selector",
+    "body": [
+      "/**\n * @description $1\n */",
+      "export const $2Selector = selector<${3:any}>({key: ${4:``},  get: ({ get }) => {$0}});"
+    ],
+    "description": "generate recoil selector template"
+  },
+  "api": {
+    "prefix": "$api",
+    "body": [
+      "/**\n * @description $1\n * @return\n */",
+      "export const ${2|fetch,update|}$3 = async ():Promise<AxiosResponse<${4:any}, IBaseApiError>> => {return httpClient.${5|get,post,delete,put,patch|}<${4:any}>(${0:``});};"
+    ],
+    "description": "generate http request template"
+  }
+}

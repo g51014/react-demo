@@ -11,20 +11,24 @@ import { useStockList } from "@modules/zustand/models/stock.model";
 function App() {
   const navigate = useNavigate();
   const [list] = useRecoilState(userListState);
-  const { list: stocks } = useStockList();
+  const { data } = useStockList();
   const currentUser = useMemo(() => list.find(({ using }) => using), [list]);
   return (
     <>
       <header className="mx-4 d-flex flex-row justify-content-between align-items-center pt-3 mx-4">
         <nav className="d-flex flex-row gap-2">
-          {[ProductModule.Recoil, ProductModule.Zustand].map((e) => (
+          {[
+            ProductModule.Recoil,
+            ProductModule.Zustand,
+            ProductModule.ReactQuery,
+          ].map((e) => (
             <a key={e} onClick={() => navigate(`/${e}/demo`)}>
               {e}
             </a>
           ))}
         </nav>
         <div className="d-flex flex-row gap-2">
-          {stocks
+          {data
             .filter(({ isActive }) => isActive)
             .map(({ name, id }) => (
               <p key={id} className="m-0">

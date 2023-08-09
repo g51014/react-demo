@@ -1,0 +1,10 @@
+{
+  "use-query": {
+    "prefix": "$use-query",
+    "body": [
+      "const { endpoint, key } = queryConfigs.$1();",
+      "const { data: $1 } = useQuery(key, endpoint, {select: (data) => data.data ?? ${2:undefined}});"
+    ],
+    "description": "generate use query template"
+  }
+}
