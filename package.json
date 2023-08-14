@@ -14,6 +14,7 @@
     "@types/react-dom": "^18.2.7",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
+    "commitizen": "^4.3.0",
     "customize-cra": "^1.0.0",
     "react": "^18.2.0",
     "react-app-rewired": "^2.2.1",
@@ -31,7 +32,8 @@
     "start": "react-app-rewired --max_old_space_size=8192 start",
     "build": "react-app-rewired --max_old_space_size=8192 build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +54,9 @@
     ]
   },
   "devDependencies": {
-    "dart-sass": "^1.25.0"
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "dart-sass": "^1.25.0",
+    "husky": "^8.0.0"
   }
 }
