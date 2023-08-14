@@ -18,17 +18,11 @@ module.exports = {
         "header-match-team-pattern": (parsed) => {
           const { scope } = parsed;
           if (!/^[A-Z]+\-[0-9]+/.test(scope)) {
-            return [false, "scope must fill an exsit jira ticket"];
+            return [false, "scope must fill an exist Jira ticket"];
           }
           return [true, ""];
         },
       },
     },
-  ],
-  //   parserPreset: {
-  //     parserOpts: {
-  //       headerPattern: /^[a-z]+\([A-Z]+[0-9]+\): [a-z]+$/,
-  //       headerCorrespondence: ["type", "scope", "subject"],
-  //     },
-  //   },
+  ]
 };
