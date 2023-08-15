@@ -1,4 +1,3 @@
-
 export interface IBaseComponentProp {
     /**
      * children component
@@ -12,9 +11,9 @@ export interface IBaseComponentProp {
      * for unit test
      */
     testId?: string;
-  }
-  
-  export interface IBaseOverlay extends IBaseComponentProp {
+}
+
+export interface IBaseOverlay extends IBaseComponentProp {
     onClose: (id: string) => void;
     handleOnClose?: () => void;
-  }
+}
