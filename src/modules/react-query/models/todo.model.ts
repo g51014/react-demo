@@ -23,9 +23,16 @@ export class Todo implements ITodo {
     public title!: string;
     public id!: number;
     public creator!: string;
-    constructor({ completed, ...todoInfo }: IApiTodo, { username: creator }: IApiUser) {
-        Object.assign(this, { ...todoInfo, creator });
-        this.status = completed ? Status.Complete : Status.Pending;
+    constructor(exist: ITodo);
+    constructor(todo: IApiTodo, user: IApiUser);
+    constructor(...args: any[]) {
+        if (args.length > 1) {
+            const [{ completed, ...todoInfo }, { username: creator }] = args as [IApiTodo, IApiUser];
+            Object.assign(this, { ...todoInfo, creator });
+            this.status = completed ? Status.Complete : Status.Pending;
+        } else {
+            Object.assign(this, args[0] as ITodo);
+        }
     }
 
     public getStatusConfig(): StatusConfig {

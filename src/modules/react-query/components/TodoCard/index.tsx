@@ -3,13 +3,26 @@ import { useQuery } from "@tanstack/react-query";
 import { queryConfigs } from "@utilities/api/react-query";
 import { useMemo } from "react";
 
-interface Props {
+type CopyCard = {
+    model: Todo;
+    isCopy: true;
+};
+
+type DataCard = {
     id: number;
+    isCopy: false;
+};
+
+interface Props {
+    detail: CopyCard | DataCard;
+    handleOnCopy: (todo: Todo) => void;
 }
-const TodoCard = ({ id }: Props) => {
+const TodoCard = ({ detail, handleOnCopy }: Props) => {
+    const id = useMemo(() => (detail.isCopy ? undefined : detail.id), [detail]);
     const { endpoint, key } = queryConfigs.todoDetail(id);
-    const { data: todoDetail } = useQuery(key, () => endpoint(id), {
+    const { data: todoDetail } = useQuery(key, () => endpoint(id ?? 0), {
         select: (data) => data.data ?? undefined,
+        enabled: id !== undefined,
     });
 
     const { endpoint: userEndpoint, key: userKey } = queryConfigs.userDetail(todoDetail?.userId);
@@ -19,8 +32,8 @@ const TodoCard = ({ id }: Props) => {
     });
 
     const model = useMemo(
-        () => (todoDetail && userDetail ? new Todo(todoDetail, userDetail) : undefined),
-        [todoDetail, userDetail]
+        () => (detail.isCopy ? detail.model : todoDetail && userDetail ? new Todo(todoDetail, userDetail) : undefined),
+        [todoDetail, userDetail, detail]
     );
     return (
         <>
@@ -50,6 +63,22 @@ const TodoCard = ({ id }: Props) => {
                                 >
                                     {model.getStatusConfig().text}
                                 </small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="p-2" style={{ width: 120 }}>
+                                操作
+                            </th>
+                            <td className="p-2">
+                                <button
+                                    onClick={() => {
+                                        if (model) {
+                                            handleOnCopy(model);
+                                        }
+                                    }}
+                                >
+                                    複製
+                                </button>
                             </td>
                         </tr>
                     </tbody>
